@@ -1,5 +1,6 @@
 package com.example.mateusz.calculator;
 
+import android.annotation.SuppressLint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,17 +9,24 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView inputField;
-    private Integer storedValue;
+    private TextView inputField = findViewById(R.id.inputField);
+    private double valueOne = Double.NaN;
+    private double valueTwo;
+    private String operation = null;
+    private boolean clearFlag = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        inputField = (TextView) findViewById(R.id.inputField);
     }
-
+    @SuppressLint("SetTextI18n")
     public void addDigit(View view) {
+        if(clearFlag) {
+            inputField.setText("");
+            clearFlag = false;
+        }
         Button digit = (Button) view;
         String buttonText = digit.getText().toString();
         Integer value = Integer.parseInt(buttonText);
@@ -26,9 +34,59 @@ public class MainActivity extends AppCompatActivity {
             String temp = inputField.getText().toString();
             inputField.setText(temp + value.toString());
         }
-        else
+        else {
             inputField.setText(value.toString());
+        }
     }
+
+    @SuppressLint("SetTextI18n")
+    public void makeEquation(View view) {
+            Button equationSign = (Button) view;
+            operation = equationSign.getText().toString();
+            if(!Double.isNaN(valueOne)) {
+                valueTwo = Double.parseDouble(inputField.getText().toString());
+                if(operation.equals("/") && valueTwo == 0) {
+                    inputField.setText(R.string.error_divide_by_0);
+                    valueOne = Double.NaN;
+                }
+                else {
+                    switch(operation) {
+                        case "+":
+                            valueOne += valueTwo;
+                            break;
+                        case "-":
+                            valueOne -= valueTwo;
+                            break;
+                        case "*":
+                            valueOne *= valueTwo;
+                            break;
+                        case "/":
+                            valueOne /= valueTwo;
+                            break;
+                        case "±":
+                            valueOne *= -1;
+                            break;
+                        default:
+                            break;
+
+                    }
+                    inputField.setText("" + valueOne);
+                    if(operation.equals("=")) valueOne = Double.NaN;
+                    operation = null;
+                }
+                clearFlag = true;
+            }
+            else {
+                try {
+                    valueOne = Double.parseDouble(inputField.getText().toString());
+                    clearFlag = true;
+                    inputField.setText("" + valueOne);
+                } catch (Exception e) {
+                    inputField.setText("");
+                }
+            }
+    }
+
 
     public void clearInputField(View view) {
         inputField.setText("");
@@ -45,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
+    @SuppressLint("SetTextI18n")
     public void addComa(View view) {
         String test = inputField.getText().toString();
         if(!test.contains(".")) {
@@ -57,22 +115,6 @@ public class MainActivity extends AppCompatActivity {
             else
                 inputField.setText(buttonText);
         }
-    }
-    public void addition(View view) {
-        if(storedValue == null) {
-            storedValue = Integer.parseInt(inputField.getText().toString());
-            clearInputField(view);
-        }
-        else {
-            Log.d("Stored value: ", storedValue.toString());
-            storedValue += Integer.parseInt(inputField.getText().toString());
-            inputField.setText(storedValue.toString());
-        }
-    }
-
-    public void equationEquals(View view) {
-        inputField.setText(storedValue.toString());
-        storedValue = null;
     }
 
     @Override

@@ -1,3 +1,23 @@
 <resources>
-    <string name="app_name">HelloWorld</string>
+    <string name="app_name">Kalkulator</string>
+    <string name="digit_one">1</string>
+    <string name="digit_two">2</string>
+    <string name="digit_three">3</string>
+    <string name="digit_four">4</string>
+    <string name="digit_five">5</string>
+    <string name="digit_six">6</string>
+    <string name="digit_seven">7</string>
+    <string name="digit_eight">8</string>
+    <string name="digit_nine">9</string>
+    <string name="digit_zero">0</string>
+    <string name="sign_plus">+</string>
+    <string name="sign_minus">-</string>
+    <string name="sign_multiply">*</string>
+    <string name="sign_divide">/</string>
+    <string name="sign_equal">=</string>
+    <string name="bakspace">COFNIJ</string>
+    <string name="clear">WYCZYŚĆ</string>
+    <string name="coma">.</string>
+    <string name="sign_plus_minus">±</string>
+    <string name="error_divide_by_0">Dziel. przez 0!</string>
 </resources>

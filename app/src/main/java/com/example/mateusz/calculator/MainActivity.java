@@ -44,43 +44,47 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     public void makeEquation(View view) {
+        try {
             Button equationSign = (Button) view;
-            if(equationSign.getText().toString().equals("=")) {
-                try {
-                    if (!equationCalculated) {
-                        valueTwo = Double.parseDouble(inputField.getText().toString());
-                    }
-                    equationCalculated = false;
-                } catch (Exception e) {
-                    inputField.setText("");
+            if (equationSign.getText().toString().equals("=")) {
+                if (!equationCalculated) {
+                    valueTwo = Double.parseDouble(inputField.getText().toString());
                 }
-            }
-            else if(equationSign.getText().toString().equals("±")) {
-                try {
+                equationCalculated = false;
+            } else if (equationSign.getText().toString().equals("±")) {
+                if(Double.isNaN(valueOne)) {
+                    operation = equationSign.getText().toString();
                     valueOne = Double.parseDouble(inputField.getText().toString());
                     valueOne *= -1;
-                    clearFlag = true;
+                    valueTwo = valueOne;
                     inputField.setText("" + valueOne);
-                } catch (Exception e) {
-                    inputField.setText("");
                 }
-            }
-            else {
-                try {
-                    operation = equationSign.getText().toString();
-                    valueTwo = Double.parseDouble(inputField.getText().toString());
-                } catch (Exception e) {
-                    inputField.setText("");
-                }
-            }
-            if(!equationCalculated) {
-                if(!Double.isNaN(valueOne)) {
-                    if(operation.equals("/") && valueTwo == 0) {
-                        inputField.setText(R.string.error_divide_by_0);
-                        valueOne = Double.NaN;
+                else {
+                    Double check = Double.parseDouble(inputField.getText().toString());
+                    if(valueOne == valueTwo  && valueOne == check){
+                        valueOne *= -1;
+                        inputField.setText("" + valueOne);
                     }
                     else {
-                        switch(operation) {
+                        valueTwo = Double.parseDouble(inputField.getText().toString());
+                        valueTwo *= -1;
+                        inputField.setText("" + valueTwo);
+                    }
+                }
+                    clearFlag = true;
+                    equationCalculated = true;
+            } else {
+                    operation = equationSign.getText().toString();
+                    valueTwo = Double.parseDouble(inputField.getText().toString());
+            }
+            if (!equationCalculated) {
+                if (!Double.isNaN(valueOne)) {
+                    if (operation.equals("/") && valueTwo == 0) {
+                        inputField.setText(R.string.error_divide_by_0);
+                        valueOne = Double.NaN;
+                        valueTwo = Double.NaN;
+                    } else {
+                        switch (operation) {
                             case "+":
                                 valueOne += valueTwo;
                                 break;
@@ -93,9 +97,6 @@ public class MainActivity extends AppCompatActivity {
                             case "/":
                                 valueOne /= valueTwo;
                                 break;
-                            case "±":
-                                valueOne *= -1;
-                                break;
                             default:
                                 break;
 
@@ -104,17 +105,15 @@ public class MainActivity extends AppCompatActivity {
                         equationCalculated = true;
                     }
                     clearFlag = true;
-                }
-                else {
-                    try {
+                } else {
                         valueOne = Double.parseDouble(inputField.getText().toString());
                         clearFlag = true;
                         inputField.setText("" + valueOne);
-                    } catch (Exception e) {
-                        inputField.setText("");
-                    }
                 }
             }
+        } catch (Exception e) {
+            inputField.setText("");
+        }
     }
 
 
@@ -145,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
                 inputField.setText(test + buttonText);
             }
             else
-                inputField.setText(buttonText);
+                inputField.setText("0" + buttonText);
         }
     }
 
@@ -157,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
         // killed and restarted.
 
         savedInstanceState.putString("inputField", inputField.getText().toString());
-
+        savedInstanceState.putBoolean("clearFlag", clearFlag);
         super.onSaveInstanceState(savedInstanceState);
     }
 
@@ -170,5 +169,6 @@ public class MainActivity extends AppCompatActivity {
         // This bundle has also been passed to onCreate.
 
         inputField.setText(savedInstanceState.getString("inputField"));
+        clearFlag = savedInstanceState.getBoolean("clearFlag");
     }
 }

@@ -9,17 +9,19 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView inputField = findViewById(R.id.inputField);
+    private TextView inputField;
     private double valueOne = Double.NaN;
     private double valueTwo;
     private String operation = null;
     private boolean clearFlag = false;
+    private boolean equationCalculated = true;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        inputField = findViewById(R.id.inputField);
     }
     @SuppressLint("SetTextI18n")
     public void addDigit(View view) {
@@ -37,52 +39,80 @@ public class MainActivity extends AppCompatActivity {
         else {
             inputField.setText(value.toString());
         }
+        equationCalculated = false;
     }
 
     @SuppressLint("SetTextI18n")
     public void makeEquation(View view) {
             Button equationSign = (Button) view;
-            operation = equationSign.getText().toString();
-            if(!Double.isNaN(valueOne)) {
-                valueTwo = Double.parseDouble(inputField.getText().toString());
-                if(operation.equals("/") && valueTwo == 0) {
-                    inputField.setText(R.string.error_divide_by_0);
-                    valueOne = Double.NaN;
-                }
-                else {
-                    switch(operation) {
-                        case "+":
-                            valueOne += valueTwo;
-                            break;
-                        case "-":
-                            valueOne -= valueTwo;
-                            break;
-                        case "*":
-                            valueOne *= valueTwo;
-                            break;
-                        case "/":
-                            valueOne /= valueTwo;
-                            break;
-                        case "±":
-                            valueOne *= -1;
-                            break;
-                        default:
-                            break;
-
+            if(equationSign.getText().toString().equals("=")) {
+                try {
+                    if (!equationCalculated) {
+                        valueTwo = Double.parseDouble(inputField.getText().toString());
                     }
-                    inputField.setText("" + valueOne);
-                    if(operation.equals("=")) valueOne = Double.NaN;
-                    operation = null;
+                    equationCalculated = false;
+                } catch (Exception e) {
+                    inputField.setText("");
                 }
-                clearFlag = true;
             }
-            else {
+            else if(equationSign.getText().toString().equals("±")) {
                 try {
                     valueOne = Double.parseDouble(inputField.getText().toString());
+                    valueOne *= -1;
                     clearFlag = true;
                     inputField.setText("" + valueOne);
                 } catch (Exception e) {
                     inputField.setText("");
+                }
+            }
+            else {
+                try {
+                    operation = equationSign.getText().toString();
+                    valueTwo = Double.parseDouble(inputField.getText().toString());
+                } catch (Exception e) {
+                    inputField.setText("");
+                }
+            }
+            if(!equationCalculated) {
+                if(!Double.isNaN(valueOne)) {
+                    if(operation.equals("/") && valueTwo == 0) {
+                        inputField.setText(R.string.error_divide_by_0);
+                        valueOne = Double.NaN;
+                    }
+                    else {
+                        switch(operation) {
+                            case "+":
+                                valueOne += valueTwo;
+                                break;
+                            case "-":
+                                valueOne -= valueTwo;
+                                break;
+                            case "*":
+                                valueOne *= valueTwo;
+                                break;
+                            case "/":
+                                valueOne /= valueTwo;
+                                break;
+                            case "±":
+                                valueOne *= -1;
+                                break;
+                            default:
+                                break;
+
+                        }
+                        inputField.setText("" + valueOne);
+                        equationCalculated = true;
+                    }
+                    clearFlag = true;
+                }
+                else {
+                    try {
+                        valueOne = Double.parseDouble(inputField.getText().toString());
+                        clearFlag = true;
+                        inputField.setText("" + valueOne);
+                    } catch (Exception e) {
+                        inputField.setText("");
+                    }
                 }
             }
     }
@@ -90,6 +120,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void clearInputField(View view) {
         inputField.setText("");
+        valueOne = Double.NaN;
+        valueTwo = Double.NaN;
     }
 
     public void bkspInput(View view) {

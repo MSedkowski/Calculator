@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:minWidth="200dp"
-    tools:context="com.example.mateusz.calculator.MainActivity">
+    tools:context="com.example.mateusz.calculator.CalculatorActivity">
 
     <Button
         android:id="@+id/digitOne"

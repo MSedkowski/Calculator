@@ -29,4 +29,5 @@
     <string name="version_number">1.0.1</string>
     <string name="version">Wersja: </string>
     <string name="back">Powrót</string>
+    <string name="title_activity_advence_calculator">AdvenceCalculatorActivity</string>
 </resources>

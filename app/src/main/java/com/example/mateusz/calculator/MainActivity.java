@@ -20,6 +20,12 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.this.startActivity(simpleCalculator);
     }
 
+    public void startAdvanceCalculator(View view) {
+        Intent advanceCalculator = new Intent(MainActivity.this, AdvanceCalculatorActivity.class);
+        advanceCalculator.putExtra("darkMode", darkMode); //Optional parameters
+        MainActivity.this.startActivity(advanceCalculator);
+    }
+
     public void startAboutApp(View view) {
         Intent about = new Intent(MainActivity.this, About.class);
         about.putExtra("darkMode", darkMode); //Optional parameters

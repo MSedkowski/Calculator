@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/clearButton2"
+        android:layout_width="132dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:onClick="clearInputField"
+        android:text="@string/clear"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bkspButton2"
+        app:layout_constraintTop_toBottomOf="@+id/inputField2"
+         />
+
+    <Button
+        android:id="@+id/bkspButton2"
+        android:layout_width="132dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:onClick="bkspInput"
+        android:text="@string/bakspace"
+        app:layout_constraintEnd_toStartOf="@+id/clearButton2"
+        app:layout_constraintStart_toEndOf="@+id/changeSign2"
+        app:layout_constraintTop_toBottomOf="@+id/inputField2" />
+
+    <TextView
+        android:id="@+id/inputField2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="460dp"
+        android:height="60dp"
+        android:gravity="end"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/sinSign"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="2dp"
+        android:text="sin"
+        app:layout_constraintEnd_toStartOf="@+id/cosSign"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/changeSign2"
+        android:layout_marginLeft="16dp" />
+
+    <Button
+        android:id="@+id/cosSign"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginTop="2dp"
+        android:text="cos"
+        app:layout_constraintEnd_toStartOf="@+id/tgSign"
+        app:layout_constraintStart_toEndOf="@+id/sinSign"
+        app:layout_constraintTop_toBottomOf="@+id/bkspButton2" />
+
+    <Button
+        android:id="@+id/changeSign2"
+        android:layout_width="88dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:onClick="makeEquation"
+        android:text="@string/sign_plus_minus"
+        app:layout_constraintEnd_toStartOf="@+id/bkspButton2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputField2"
+        android:layout_marginLeft="16dp" />
+
+    <Button
+        android:id="@+id/tgSign"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginTop="2dp"
+        android:text="tan"
+        app:layout_constraintEnd_toStartOf="@+id/lnSign"
+        app:layout_constraintStart_toEndOf="@+id/cosSign"
+        app:layout_constraintTop_toBottomOf="@+id/clearButton2" />
+
+    <Button
+        android:id="@+id/lnSign"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="2dp"
+        android:text="ln"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tgSign"
+        app:layout_constraintTop_toBottomOf="@+id/clearButton2" />
+
+    <Button
+        android:id="@+id/sqrtSign"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="2dp"
+        android:text="√"
+        app:layout_constraintEnd_toStartOf="@+id/pow2Sign"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sinSign"
+        android:layout_marginLeft="16dp" />
+
+    <Button
+        android:id="@+id/pow2Sign"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginTop="2dp"
+        android:text="x^2"
+        app:layout_constraintEnd_toStartOf="@+id/powSign"
+        app:layout_constraintStart_toEndOf="@+id/sqrtSign"
+        app:layout_constraintTop_toBottomOf="@+id/cosSign" />
+
+    <Button
+        android:id="@+id/powSign"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginTop="2dp"
+        android:text="x^y"
+        app:layout_constraintEnd_toStartOf="@+id/logSign"
+        app:layout_constraintStart_toEndOf="@+id/pow2Sign"
+        app:layout_constraintTop_toBottomOf="@+id/tgSign" />
+
+    <Button
+        android:id="@+id/logSign"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="2dp"
+        android:text="log"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/powSign"
+        app:layout_constraintTop_toBottomOf="@+id/tgSign" />
+
+    <Button
+        android:id="@+id/digitThree2"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginTop="2dp"
+        android:onClick="addDigit"
+        android:text="@string/digit_three"
+        app:layout_constraintEnd_toStartOf="@+id/signMinus2"
+        app:layout_constraintStart_toEndOf="@+id/digitTwo2"
+        app:layout_constraintTop_toBottomOf="@+id/digitSix" />
+
+    <Button
+        android:id="@+id/signMinus2"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="2dp"
+        android:onClick="makeEquation"
+        android:text="@string/sign_minus"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/digitThree2"
+        app:layout_constraintTop_toBottomOf="@+id/signMultiply2" />
+
+    <Button
+        android:id="@+id/digitSix"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginTop="2dp"
+        android:onClick="addDigit"
+        android:text="@string/digit_six"
+        app:layout_constraintEnd_toStartOf="@+id/signMultiply2"
+        app:layout_constraintStart_toEndOf="@+id/digitFive2"
+        app:layout_constraintTop_toBottomOf="@+id/digitNine2" />
+
+    <Button
+        android:id="@+id/digitFour2"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="2dp"
+        android:onClick="addDigit"
+        android:text="@string/digit_four"
+        app:layout_constraintEnd_toStartOf="@+id/digitFive2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/digitSeven2"
+        android:layout_marginLeft="16dp" />
+
+    <Button
+        android:id="@+id/digitSeven2"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="2dp"
+        android:onClick="addDigit"
+        android:text="@string/digit_seven"
+        app:layout_constraintEnd_toStartOf="@+id/digitEight2"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sqrtSign"
+        android:layout_marginLeft="16dp" />
+
+    <Button
+        android:id="@+id/digitEight2"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginTop="2dp"
+        android:onClick="addDigit"
+        android:text="@string/digit_eight"
+        app:layout_constraintEnd_toStartOf="@+id/digitNine2"
+        app:layout_constraintStart_toEndOf="@+id/digitSeven2"
+        app:layout_constraintTop_toBottomOf="@+id/pow2Sign" />
+
+    <Button
+        android:id="@+id/digitNine2"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginTop="2dp"
+        android:onClick="addDigit"
+        android:text="@string/digit_nine"
+        app:layout_constraintEnd_toStartOf="@+id/signDivide2"
+        app:layout_constraintStart_toEndOf="@+id/digitEight2"
+        app:layout_constraintTop_toBottomOf="@+id/powSign" />
+
+    <Button
+        android:id="@+id/signDivide2"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="2dp"
+        android:onClick="makeEquation"
+        android:text="@string/sign_divide"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/digitNine2"
+        app:layout_constraintTop_toBottomOf="@+id/logSign" />
+
+    <Button
+        android:id="@+id/digitFive2"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginTop="2dp"
+        android:onClick="addDigit"
+        android:text="@string/digit_five"
+        app:layout_constraintEnd_toStartOf="@+id/digitSix"
+        app:layout_constraintStart_toEndOf="@+id/digitFour2"
+        app:layout_constraintTop_toBottomOf="@+id/digitEight2" />
+
+    <Button
+        android:id="@+id/signMultiply2"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="2dp"
+        android:onClick="makeEquation"
+        android:text="@string/sign_multiply"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/digitSix"
+        app:layout_constraintTop_toBottomOf="@+id/signDivide2" />
+
+    <Button
+        android:id="@+id/digitOne2"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="2dp"
+        android:onClick="addDigit"
+        android:text="@string/digit_one"
+        app:layout_constraintEnd_toStartOf="@+id/digitTwo2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/digitFour2"
+        android:layout_marginLeft="16dp" />
+
+    <Button
+        android:id="@+id/digitTwo2"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginTop="2dp"
+        android:onClick="addDigit"
+        android:text="@string/digit_two"
+        app:layout_constraintEnd_toStartOf="@+id/digitThree2"
+        app:layout_constraintStart_toEndOf="@+id/digitOne2"
+        app:layout_constraintTop_toBottomOf="@+id/digitFive2" />
+
+    <Button
+        android:id="@+id/digitZero2"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="2dp"
+        android:onClick="addDigit"
+        android:text="@string/digit_zero"
+        app:layout_constraintEnd_toStartOf="@+id/comaButton2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/digitOne2"
+        android:layout_marginLeft="16dp" />
+
+    <Button
+        android:id="@+id/comaButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginTop="2dp"
+        android:onClick="addComa"
+        android:text="@string/coma"
+        app:layout_constraintEnd_toStartOf="@+id/equalsButton2"
+        app:layout_constraintStart_toEndOf="@+id/digitZero2"
+        app:layout_constraintTop_toBottomOf="@+id/digitTwo2" />
+
+    <Button
+        android:id="@+id/equalsButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginTop="2dp"
+        android:onClick="makeEquation"
+        android:text="@string/sign_equal"
+        app:layout_constraintEnd_toStartOf="@+id/plusSign2"
+        app:layout_constraintStart_toEndOf="@+id/comaButton2"
+        app:layout_constraintTop_toBottomOf="@+id/digitThree2" />
+
+    <Button
+        android:id="@+id/plusSign2"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="2dp"
+        android:onClick="makeEquation"
+        android:text="@string/sign_plus"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/equalsButton2"
+        app:layout_constraintTop_toBottomOf="@+id/signMinus2" />
+</android.support.constraint.ConstraintLayout>

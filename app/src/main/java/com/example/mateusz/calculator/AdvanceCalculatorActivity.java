@@ -1,10 +1,9 @@
 package com.example.mateusz.calculator;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.Display;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -22,13 +21,10 @@ public class AdvanceCalculatorActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Display display = getWindowManager().getDefaultDisplay();
-        int width = display.getWidth();
-        int height = display.getHeight();
-        Log.d("Szerokość:", "" + width);
-        if(width == 768 || height == 768) {
-            setContentView(R.layout.advance_calculator_768w);
-        }
+        setContentView(R.layout.advance_calculator);
+        Intent intent = getIntent();
+        darkMode = intent.getBooleanExtra("darkMode", false); //if it's a string you stored.
+        inputField = findViewById(R.id.inputField);
     }
 
     @SuppressLint("SetTextI18n")
@@ -168,7 +164,9 @@ public class AdvanceCalculatorActivity extends AppCompatActivity {
         // This bundle will be passed to onCreate if the process is
         // killed and restarted.
 
-        savedInstanceState.putString("inputField", inputField.getText().toString());
+        if(inputField.getText() != null) {
+            savedInstanceState.putString("inputField", inputField.getText().toString());
+        }
         savedInstanceState.putBoolean("clearFlag", clearFlag);
         super.onSaveInstanceState(savedInstanceState);
     }

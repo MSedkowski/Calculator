@@ -4,9 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.text.DecimalFormat;
 
 public class CalculatorActivity extends AppCompatActivity {
     private boolean darkMode = false;
@@ -35,19 +38,22 @@ public class CalculatorActivity extends AppCompatActivity {
         Button digit = (Button) view;
         String buttonText = digit.getText().toString();
         Integer value = Integer.parseInt(buttonText);
-        if(inputField.getText().length() != 0) {
-            String temp = inputField.getText().toString();
-            inputField.setText(temp + value.toString());
+        if(inputField.getText().length() < 12) {
+            if(inputField.getText().length() != 0) {
+                String temp = inputField.getText().toString();
+                inputField.setText(temp + value.toString());
+            }
+            else {
+                inputField.setText(value.toString());
+            }
+            equationCalculated = false;
         }
-        else {
-            inputField.setText(value.toString());
-        }
-        equationCalculated = false;
     }
 
     @SuppressLint("SetTextI18n")
     public void makeEquation(View view) {
         try {
+            DecimalFormat formater;
             Button equationSign = (Button) view;
             if (equationSign.getText().toString().equals("=")) {
                 if (!equationCalculated) {
@@ -60,18 +66,21 @@ public class CalculatorActivity extends AppCompatActivity {
                     valueOne = Double.parseDouble(inputField.getText().toString());
                     valueOne *= -1;
                     valueTwo = valueOne;
-                    inputField.setText("" + valueOne);
+                    formater = checkTheValue(valueOne);
+                    inputField.setText(formater.format(valueOne));
                 }
                 else {
                     Double check = Double.parseDouble(inputField.getText().toString());
                     if(valueOne == valueTwo  && valueOne == check){
                         valueOne *= -1;
-                        inputField.setText("" + valueOne);
+                        formater = checkTheValue(valueOne);
+                        inputField.setText(formater.format(valueOne));
                     }
                     else {
                         valueTwo = Double.parseDouble(inputField.getText().toString());
                         valueTwo *= -1;
-                        inputField.setText("" + valueTwo);
+                        formater = checkTheValue(valueTwo);
+                        inputField.setText(formater.format(valueTwo));
                     }
                 }
                 clearFlag = true;
@@ -104,14 +113,17 @@ public class CalculatorActivity extends AppCompatActivity {
                                 break;
 
                         }
-                        inputField.setText("" + valueOne);
+                        formater = checkTheValue(valueOne);
+                        Log.wtf("Formater: ", "" + formater);
+                        inputField.setText(formater.format(valueOne));
                         equationCalculated = true;
                     }
                     clearFlag = true;
                 } else {
                     valueOne = Double.parseDouble(inputField.getText().toString());
                     clearFlag = true;
-                    inputField.setText("" + valueOne);
+                    formater = checkTheValue(valueOne);
+                    inputField.setText(formater.format(valueOne));
                 }
             }
         } catch (Exception e) {
@@ -136,6 +148,25 @@ public class CalculatorActivity extends AppCompatActivity {
                 inputField.setText("");
             }
         }
+    }
+
+    private DecimalFormat checkTheValue(Double value) {
+        String[] numberOfDigits = value.toString().split(".");
+        int numberOfDigitsBeforeZero = numberOfDigits[0].length();
+        int numberOfDigitsAfterZero = numberOfDigits[1].length();
+        if(numberOfDigitsAfterZero + numberOfDigitsBeforeZero > 12) {
+            numberOfDigitsAfterZero = 12 - numberOfDigitsBeforeZero;
+        }
+        String formater = "";
+        for(int i = 0; i < numberOfDigitsBeforeZero; i++) {
+            formater += "#";
+        }
+        formater += ".";
+        for(int i = 0; i < numberOfDigitsAfterZero; i++) {
+            formater += "#";
+        }
+        Log.wtf("Formater: ", formater);
+        return new DecimalFormat(formater);
     }
 
     @SuppressLint("SetTextI18n")

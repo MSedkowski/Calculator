@@ -71,7 +71,7 @@ public class CalculatorActivity extends AppCompatActivity {
                 }
             } else {
                 equation.setOperationSign(equationSign.getText().toString());
-                if(!equation.isEqualSignClicked() && (!equation.isWaitForDigit() || equation.getOperationSign().equals("±"))) {
+                if(!equation.isEqualSignClicked() && !equation.isWaitForDigit()) {
                     if (Double.isNaN(equation.getFirstDigit())) {
                         equation.setFirstDigit(Double.parseDouble(inputField.getText().toString()));
                         formater = checkTheValue(equation.getFirstDigit());
@@ -110,6 +110,7 @@ public class CalculatorActivity extends AppCompatActivity {
                 inputField.setText("" + formater.format(equation.getValue()));
             }
             equation.setClearScreen(true);
+            equation.setWaitForDigit(true);
         } catch (Exception ex) {
             Context context = getApplicationContext();
             int duration = Toast.LENGTH_SHORT;
@@ -120,7 +121,6 @@ public class CalculatorActivity extends AppCompatActivity {
             equation.setFirstDigit(Double.NaN);
             equation.setSecondDigit(Double.NaN);
         }
-        equation.setWaitForDigit(true);
     }
 
     private DecimalFormat checkTheValue(Double value) {

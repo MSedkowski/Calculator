@@ -172,7 +172,6 @@ public class CalculatorActivity extends AppCompatActivity {
     public void onRestoreInstanceState(Bundle savedInstanceState) {
 
         super.onRestoreInstanceState(savedInstanceState);
-
         inputField.setText(savedInstanceState.getString("inputField"));
         equation.setFirstDigit(savedInstanceState.getDouble("firstDigit"));
         equation.setSecondDigit(savedInstanceState.getDouble("secondDigit"));

@@ -45,7 +45,7 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="8dp"
                 android:layout_weight="1"
-                android:onClick="makeEquation"
+                android:onClick="makeOneDigitEquation"
                 android:text="@string/sign_plus_minus"
                 android:visibility="visible"
                 app:layout_constraintBottom_toTopOf="@+id/guideline2"
@@ -101,16 +101,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"
                 android:layout_marginTop="0dp"
                 android:layout_weight="1"
+                android:onClick="makeOneDigitEquation"
                 android:text="@string/sinus"
                 android:visibility="visible"
                 app:layout_constraintBottom_toTopOf="@+id/sqrtSign"
                 app:layout_constraintEnd_toStartOf="@+id/cosSign"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
-                app:layout_constraintTop_toTopOf="@+id/guideline2"
-                android:layout_marginStart="4dp"
-                />
+                app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
             <Button
                 android:id="@+id/cosSign"
@@ -118,13 +118,13 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="0dp"
                 android:layout_weight="1"
+                android:onClick="makeOneDigitEquation"
                 android:text="@string/cosinus"
                 android:visibility="visible"
                 app:layout_constraintBottom_toTopOf="@+id/pow2Sign"
                 app:layout_constraintEnd_toStartOf="@+id/tgSign"
                 app:layout_constraintStart_toEndOf="@+id/sinSign"
-                app:layout_constraintTop_toTopOf="@+id/guideline2"
-                />
+                app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
             <Button
                 android:id="@+id/tgSign"
@@ -132,6 +132,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="0dp"
                 android:layout_weight="1"
+                android:onClick="makeOneDigitEquation"
                 android:text="@string/tangens"
                 android:visibility="visible"
                 app:layout_constraintBottom_toTopOf="@+id/powSign"
@@ -143,16 +144,17 @@
                 android:id="@+id/lnSign"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginEnd="4dp"
                 android:layout_marginRight="4dp"
                 android:layout_marginTop="0dp"
                 android:layout_weight="1"
+                android:onClick="makeOneDigitEquation"
                 android:text="@string/ln"
                 android:visibility="visible"
                 app:layout_constraintBottom_toTopOf="@+id/logSign"
                 app:layout_constraintEnd_toStartOf="@+id/guideline4"
                 app:layout_constraintStart_toEndOf="@+id/tgSign"
-                app:layout_constraintTop_toTopOf="@+id/guideline2"
-                android:layout_marginEnd="4dp" />
+                app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
         </LinearLayout>
 
@@ -169,20 +171,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"
                 android:layout_weight="1"
+                android:onClick="makeOneDigitEquation"
                 android:text="@string/sqrt"
                 app:layout_constraintBottom_toTopOf="@+id/digitSeven"
                 app:layout_constraintEnd_toStartOf="@+id/pow2Sign"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
-                app:layout_constraintTop_toBottomOf="@+id/sinSign"
-                android:layout_marginStart="4dp" />
+                app:layout_constraintTop_toBottomOf="@+id/sinSign" />
 
             <Button
                 android:id="@+id/pow2Sign"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:onClick="makeOneDigitEquation"
                 android:text="@string/pow2"
                 app:layout_constraintBottom_toTopOf="@+id/digitEight"
                 app:layout_constraintEnd_toStartOf="@+id/powSign"
@@ -194,6 +198,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:onClick="makeEquation"
                 android:text="@string/powX"
                 app:layout_constraintBottom_toTopOf="@+id/digitNine"
                 app:layout_constraintEnd_toStartOf="@+id/logSign"
@@ -204,14 +209,15 @@
                 android:id="@+id/logSign"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginEnd="4dp"
                 android:layout_marginRight="4dp"
                 android:layout_weight="1"
+                android:onClick="makeOneDigitEquation"
                 android:text="@string/log"
                 app:layout_constraintBottom_toTopOf="@+id/signDivide"
                 app:layout_constraintEnd_toStartOf="@+id/guideline4"
                 app:layout_constraintStart_toEndOf="@+id/powSign"
-                app:layout_constraintTop_toBottomOf="@+id/lnSign"
-                android:layout_marginEnd="4dp" />
+                app:layout_constraintTop_toBottomOf="@+id/lnSign" />
         </LinearLayout>
 
         <LinearLayout

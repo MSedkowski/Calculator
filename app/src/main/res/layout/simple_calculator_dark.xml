@@ -50,7 +50,7 @@
                 android:layout_marginTop="0dp"
                 android:layout_weight="1"
                 android:backgroundTint="@android:color/darker_gray"
-                android:onClick="makeEquation"
+                android:onClick="makeOneDigitEquation"
                 android:text="@string/sign_plus_minus"
                 android:textColor="@android:color/background_light"
                 android:visibility="visible"

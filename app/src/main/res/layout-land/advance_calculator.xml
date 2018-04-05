@@ -54,7 +54,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="0dp"
                 android:layout_weight="5"
-                android:onClick="makeEquation"
+                android:onClick="makeOneDigitEquation"
                 android:text="@string/sign_plus_minus"
                 app:layout_constraintBottom_toTopOf="@+id/digitSeven"
                 app:layout_constraintEnd_toStartOf="@+id/bkspButton"
@@ -100,6 +100,7 @@
                 android:layout_marginBottom="0dp"
                 android:layout_marginTop="0dp"
                 android:layout_weight="5"
+                android:onClick="makeOneDigitEquation"
                 android:text="@string/sinus"
                 app:layout_constraintBottom_toTopOf="@+id/pow2Sign"
                 app:layout_constraintEnd_toStartOf="@+id/cosSign"
@@ -112,14 +113,15 @@
                 android:layout_height="match_parent"
                 android:layout_marginBottom="0dp"
                 android:layout_marginEnd="0dp"
+                android:layout_marginRight="0dp"
                 android:layout_marginTop="0dp"
                 android:layout_weight="5"
+                android:onClick="makeOneDigitEquation"
                 android:text="@string/cosinus"
                 app:layout_constraintBottom_toTopOf="@+id/powSign"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/sinSign"
-                app:layout_constraintTop_toBottomOf="@+id/tgSign"
-                android:layout_marginRight="0dp" />
+                app:layout_constraintTop_toBottomOf="@+id/tgSign" />
 
             <Button
                 android:id="@+id/tgSign"
@@ -130,6 +132,7 @@
                 android:layout_marginRight="0dp"
                 android:layout_marginTop="0dp"
                 android:layout_weight="5"
+                android:onClick="makeOneDigitEquation"
                 android:text="@string/tangens"
                 app:layout_constraintBottom_toTopOf="@+id/cosSign"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -149,7 +152,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/equalsButton"
-                app:layout_constraintTop_toBottomOf="@+id/powSign" />
+                app:layout_constraintTop_toBottomOf="@+id/powSign"
+                android:onClick="makeOneDigitEquation" />
 
         </LinearLayout>
 
@@ -244,6 +248,7 @@
                 android:layout_marginBottom="0dp"
                 android:layout_marginTop="0dp"
                 android:layout_weight="1"
+                android:onClick="makeOneDigitEquation"
                 android:text="@string/pow2"
                 app:layout_constraintBottom_toTopOf="@+id/equalsButton"
                 app:layout_constraintEnd_toStartOf="@+id/powSign"
@@ -259,6 +264,7 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="0dp"
                 android:layout_weight="1"
+                android:onClick="makeEquation"
                 android:text="@string/powX"
                 app:layout_constraintBottom_toTopOf="@+id/sqrtSign"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -358,6 +364,7 @@
                 android:layout_marginBottom="0dp"
                 android:layout_marginTop="0dp"
                 android:layout_weight="1"
+                android:onClick="makeOneDigitEquation"
                 android:text="@string/ln"
                 app:layout_constraintBottom_toTopOf="@+id/signDivide"
                 app:layout_constraintEnd_toStartOf="@+id/logSign"
@@ -373,6 +380,7 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="0dp"
                 android:layout_weight="1"
+                android:onClick="makeOneDigitEquation"
                 android:text="@string/log"
                 app:layout_constraintBottom_toTopOf="@+id/sinSign"
                 app:layout_constraintEnd_toStartOf="@+id/tgSign"

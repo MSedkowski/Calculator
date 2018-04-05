@@ -97,6 +97,32 @@ public class CalculatorActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("SetTextI18n")
+    public void makeOneDigitEquation(View view) {
+        DecimalFormat formater;
+        Button equationSign = (Button) view;
+        try {
+            equation.setOperationSign(equationSign.getText().toString());
+            if(!inputField.getText().toString().equals("")) {
+                equation.setFirstDigit(Double.parseDouble(inputField.getText().toString()));
+                equation.makeEquation(equation);
+                formater = checkTheValue(equation.getValue());
+                inputField.setText("" + formater.format(equation.getValue()));
+            }
+            equation.setClearScreen(true);
+        } catch (Exception ex) {
+            Context context = getApplicationContext();
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, ex.getMessage(), duration);
+            toast.show();
+            inputField.setText("");
+            equation.setFirstDigit(Double.NaN);
+            equation.setSecondDigit(Double.NaN);
+        }
+        equation.setWaitForDigit(true);
+    }
+
     private DecimalFormat checkTheValue(Double value) {
         String valueToString = value.toString();
         List<String> numberOfDigits = Arrays.asList(valueToString.split("\\."));

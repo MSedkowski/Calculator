@@ -48,7 +48,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="0dp"
                 android:layout_weight="1"
-                android:onClick="makeEquation"
+                android:onClick="makeOneDigitEquation"
                 android:text="@string/sign_plus_minus"
                 android:visibility="visible"
                 app:layout_constraintBottom_toTopOf="@+id/digitSeven"

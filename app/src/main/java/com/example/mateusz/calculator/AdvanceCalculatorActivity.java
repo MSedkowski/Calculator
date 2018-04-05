@@ -11,14 +11,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class AdvanceCalculatorActivity extends AppCompatActivity {
 
     private boolean darkMode = false;
     private TextView inputField;
     private Equation equation;
+    private Locale currentLocale;
+    private DecimalFormatSymbols otherSymbols;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,10 @@ public class AdvanceCalculatorActivity extends AppCompatActivity {
         else setContentView(R.layout.advance_calculator);
         inputField = findViewById(R.id.inputField);
         equation = new Equation();
+        currentLocale = Locale.getDefault();
+        otherSymbols = new DecimalFormatSymbols(currentLocale);
+        otherSymbols.setDecimalSeparator('.');
+        otherSymbols.setGroupingSeparator(',');
     }
 
     @SuppressLint("SetTextI18n")
@@ -130,6 +138,7 @@ public class AdvanceCalculatorActivity extends AppCompatActivity {
 
     private DecimalFormat checkTheValue(Double value) {
         String valueToString = value.toString();
+        if(valueToString.contains(",")) valueToString.replace(",", ".");
         List<String> numberOfDigits = Arrays.asList(valueToString.split("\\."));
         int numberOfDigitsBeforeZero = numberOfDigits.get(0).length();
         int numberOfDigitsAfterZero = 0;
@@ -147,7 +156,7 @@ public class AdvanceCalculatorActivity extends AppCompatActivity {
         for(int i = 0; i < numberOfDigitsAfterZero; i++) {
             formater.append("#");
         }
-        return new DecimalFormat(formater.toString());
+        return new DecimalFormat(formater.toString(), otherSymbols);
     }
 
     public void clearInputField(View view) {

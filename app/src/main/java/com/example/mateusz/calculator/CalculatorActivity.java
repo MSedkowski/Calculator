@@ -1,39 +1,39 @@
 package com.example.mateusz.calculator;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
+import java.util.Arrays;
+import java.util.List;
 
 public class CalculatorActivity extends AppCompatActivity {
-    private boolean darkMode = false;
     private TextView inputField;
-    private double valueOne = Double.NaN;
-    private double valueTwo;
-    private String operation = null;
-    private boolean clearFlag = false;
-    private boolean equationCalculated = true;
+    private Equation equation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.simple_calculator);
         Intent intent = getIntent();
-        darkMode = intent.getBooleanExtra("darkMode", false); //if it's a string you stored.
+        boolean darkMode = intent.getBooleanExtra("darkMode", false); //if it's a string you stored.
+        if(darkMode) setContentView(R.layout.simple_calculator_dark);
+        else setContentView(R.layout.simple_calculator);
         inputField = findViewById(R.id.inputField);
+        equation = new Equation();
     }
 
     @SuppressLint("SetTextI18n")
     public void addDigit(View view) {
-        if(clearFlag) {
+        if(equation.isClearScreen()) {
             inputField.setText("");
-            clearFlag = false;
+            equation.setClearScreen(false);
         }
         Button digit = (Button) view;
         String buttonText = digit.getText().toString();
@@ -46,96 +46,83 @@ public class CalculatorActivity extends AppCompatActivity {
             else {
                 inputField.setText(value.toString());
             }
-            equationCalculated = false;
         }
     }
 
     @SuppressLint("SetTextI18n")
     public void makeEquation(View view) {
+        DecimalFormat formater;
+        Button equationSign = (Button) view;
         try {
-            DecimalFormat formater;
-            Button equationSign = (Button) view;
             if (equationSign.getText().toString().equals("=")) {
-                if (!equationCalculated) {
-                    valueTwo = Double.parseDouble(inputField.getText().toString());
-                }
-                equationCalculated = false;
-            } else if (equationSign.getText().toString().equals("±")) {
-                if(Double.isNaN(valueOne)) {
-                    operation = equationSign.getText().toString();
-                    valueOne = Double.parseDouble(inputField.getText().toString());
-                    valueOne *= -1;
-                    valueTwo = valueOne;
-                    formater = checkTheValue(valueOne);
-                    inputField.setText(formater.format(valueOne));
+                if (!Double.isNaN(equation.getFirstDigit())) {
+                    if(!equation.isEqualSignClicked()) equation.setSecondDigit(Double.parseDouble(inputField.getText().toString()));
+                    equation.makeEquation(equation);
+                    formater = checkTheValue(equation.getValue());
+                    inputField.setText("" + formater.format(equation.getValue()));
+                    equation.setFirstDigit(Double.parseDouble(inputField.getText().toString()));
+                    equation.setEqualSignClicked(true);
                 }
                 else {
-                    Double check = Double.parseDouble(inputField.getText().toString());
-                    if(valueOne == valueTwo  && valueOne == check){
-                        valueOne *= -1;
-                        formater = checkTheValue(valueOne);
-                        inputField.setText(formater.format(valueOne));
-                    }
-                    else {
-                        valueTwo = Double.parseDouble(inputField.getText().toString());
-                        valueTwo *= -1;
-                        formater = checkTheValue(valueTwo);
-                        inputField.setText(formater.format(valueTwo));
+                    if(inputField.getText().length() > 0) {
+                        equation.setFirstDigit(Double.parseDouble(inputField.getText().toString()));
+                        equation.setEqualSignClicked(true);
                     }
                 }
-                clearFlag = true;
-                equationCalculated = true;
             } else {
-                operation = equationSign.getText().toString();
-                valueTwo = Double.parseDouble(inputField.getText().toString());
-            }
-            if (!equationCalculated) {
-                if (!Double.isNaN(valueOne)) {
-                    if (operation.equals("/") && valueTwo == 0) {
-                        inputField.setText(R.string.error_divide_by_0);
-                        valueOne = Double.NaN;
-                        valueTwo = Double.NaN;
+                equation.setOperationSign(equationSign.getText().toString());
+                if(!equation.isEqualSignClicked() && (!equation.isWaitForDigit() || equation.getOperationSign().equals("±"))) {
+                    if (Double.isNaN(equation.getFirstDigit())) {
+                        equation.setFirstDigit(Double.parseDouble(inputField.getText().toString()));
+                        formater = checkTheValue(equation.getFirstDigit());
+                        inputField.setText("" + formater.format(equation.getFirstDigit()));
                     } else {
-                        switch (operation) {
-                            case "+":
-                                valueOne += valueTwo;
-                                break;
-                            case "-":
-                                valueOne -= valueTwo;
-                                break;
-                            case "*":
-                                valueOne *= valueTwo;
-                                break;
-                            case "/":
-                                valueOne /= valueTwo;
-                                break;
-                            default:
-                                break;
-
-                        }
-                        formater = checkTheValue(valueOne);
-                        Log.wtf("Formater: ", "" + formater);
-                        inputField.setText(formater.format(valueOne));
-                        equationCalculated = true;
+                        equation.setSecondDigit(Double.parseDouble(inputField.getText().toString()));
+                        equation.makeEquation(equation);
+                        formater = checkTheValue(equation.getValue());
+                        inputField.setText("" + formater.format(equation.getValue()));
                     }
-                    clearFlag = true;
-                } else {
-                    valueOne = Double.parseDouble(inputField.getText().toString());
-                    clearFlag = true;
-                    formater = checkTheValue(valueOne);
-                    inputField.setText(formater.format(valueOne));
+                    equation.setClearScreen(true);
                 }
+                equation.setEqualSignClicked(false);
+                equation.setWaitForDigit(true);
             }
-        } catch (Exception e) {
+        } catch (Exception ex) {
+            Context context = getApplicationContext();
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, ex.getMessage(), duration);
+            toast.show();
             inputField.setText("");
         }
     }
 
+    private DecimalFormat checkTheValue(Double value) {
+        String valueToString = value.toString();
+        List<String> numberOfDigits = Arrays.asList(valueToString.split("\\."));
+        int numberOfDigitsBeforeZero = numberOfDigits.get(0).length();
+        int numberOfDigitsAfterZero = 0;
+        if(numberOfDigits.size() > 1) {
+            numberOfDigitsAfterZero = numberOfDigits.get(1).length();
+            if(numberOfDigitsAfterZero + numberOfDigitsBeforeZero > 12) {
+                numberOfDigitsAfterZero = 12 - numberOfDigitsBeforeZero;
+            }
+        }
+        StringBuilder formater = new StringBuilder();
+        for(int i = 0; i < numberOfDigitsBeforeZero; i++) {
+            formater.append("#");
+        }
+        formater.append(".");
+        for(int i = 0; i < numberOfDigitsAfterZero; i++) {
+            formater.append("#");
+        }
+        return new DecimalFormat(formater.toString());
+    }
 
     public void clearInputField(View view) {
         inputField.setText("");
-        valueOne = Double.NaN;
-        valueTwo = Double.NaN;
+        equation.setFirstDigit(Double.NaN);
+        equation.setSecondDigit(Double.NaN);
     }
 
     public void bkspInput(View view) {
@@ -148,25 +135,6 @@ public class CalculatorActivity extends AppCompatActivity {
                 inputField.setText("");
             }
         }
-    }
-
-    private DecimalFormat checkTheValue(Double value) {
-        String[] numberOfDigits = value.toString().split(".");
-        int numberOfDigitsBeforeZero = numberOfDigits[0].length();
-        int numberOfDigitsAfterZero = numberOfDigits[1].length();
-        if(numberOfDigitsAfterZero + numberOfDigitsBeforeZero > 12) {
-            numberOfDigitsAfterZero = 12 - numberOfDigitsBeforeZero;
-        }
-        String formater = "";
-        for(int i = 0; i < numberOfDigitsBeforeZero; i++) {
-            formater += "#";
-        }
-        formater += ".";
-        for(int i = 0; i < numberOfDigitsAfterZero; i++) {
-            formater += "#";
-        }
-        Log.wtf("Formater: ", formater);
-        return new DecimalFormat(formater);
     }
 
     @SuppressLint("SetTextI18n")
@@ -196,7 +164,6 @@ public class CalculatorActivity extends AppCompatActivity {
         // killed and restarted.
 
         savedInstanceState.putString("inputField", inputField.getText().toString());
-        savedInstanceState.putBoolean("clearFlag", clearFlag);
         super.onSaveInstanceState(savedInstanceState);
     }
 
@@ -209,6 +176,5 @@ public class CalculatorActivity extends AppCompatActivity {
         // This bundle has also been passed to onCreate.
 
         inputField.setText(savedInstanceState.getString("inputField"));
-        clearFlag = savedInstanceState.getBoolean("clearFlag");
     }
 }

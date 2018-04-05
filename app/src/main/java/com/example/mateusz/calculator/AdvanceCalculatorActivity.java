@@ -57,6 +57,7 @@ public class AdvanceCalculatorActivity extends AppCompatActivity {
                 inputField.setText(value.toString());
             }
         }
+        equation.setWaitForDigit(false);
     }
 
     @SuppressLint("SetTextI18n")
@@ -80,6 +81,9 @@ public class AdvanceCalculatorActivity extends AppCompatActivity {
                     }
                 }
                 equation.setClearScreen(true);
+            } else if(equationSign.getText().toString().equals("-") && inputField.getText().toString().isEmpty()) {
+                inputField.setText("-");
+                equation.setWaitForDigit(true);
             } else {
                 equation.setOperationSign(equationSign.getText().toString());
                 if(!equation.isEqualSignClicked() && !equation.isWaitForDigit()) {

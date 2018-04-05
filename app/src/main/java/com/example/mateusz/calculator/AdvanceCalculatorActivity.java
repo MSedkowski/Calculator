@@ -189,14 +189,13 @@ public class AdvanceCalculatorActivity extends AppCompatActivity {
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-
-        // Save UI state changes to the savedInstanceState.
-        // This bundle will be passed to onCreate if the process is
-        // killed and restarted.
-
-        if(inputField.getText() != null) {
-            savedInstanceState.putString("inputField", inputField.getText().toString());
-        }
+        savedInstanceState.putString("inputField", inputField.getText().toString());
+        savedInstanceState.putDouble("firstDigit", equation.getFirstDigit());
+        savedInstanceState.putDouble("secondDigit", equation.getSecondDigit());
+        savedInstanceState.putString("operationSign", equation.getOperationSign());
+        savedInstanceState.putBoolean("clearScreen", equation.isClearScreen());
+        savedInstanceState.putBoolean("equalSignClicked", equation.isEqualSignClicked());
+        savedInstanceState.putBoolean("waitForDigit", equation.isWaitForDigit());
         super.onSaveInstanceState(savedInstanceState);
     }
 
@@ -205,10 +204,13 @@ public class AdvanceCalculatorActivity extends AppCompatActivity {
 
         super.onRestoreInstanceState(savedInstanceState);
 
-        // Restore UI state from the savedInstanceState.
-        // This bundle has also been passed to onCreate.
-
         inputField.setText(savedInstanceState.getString("inputField"));
+        equation.setFirstDigit(savedInstanceState.getDouble("firstDigit"));
+        equation.setSecondDigit(savedInstanceState.getDouble("secondDigit"));
+        equation.setOperationSign(savedInstanceState.getString("operationSign"));
+        equation.setClearScreen(savedInstanceState.getBoolean("clearScreen"));
+        equation.setEqualSignClicked(savedInstanceState.getBoolean("equalSignClicked"));
+        equation.setWaitForDigit(savedInstanceState.getBoolean("waitForDigit"));
     }
 }
 

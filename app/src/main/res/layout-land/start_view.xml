@@ -84,6 +84,7 @@
                 android:layout_marginRight="32dp"
                 android:layout_marginStart="32dp"
                 android:layout_weight="1"
+                android:onClick="startAdvanceCalculator"
                 android:text="@string/title_activity_advence_calculator" />
 
             <Button

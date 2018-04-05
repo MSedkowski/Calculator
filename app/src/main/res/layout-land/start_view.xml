@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="NestedWeights">
 
     <LinearLayout
@@ -13,7 +14,7 @@
         android:weightSum="20">
 
         <Switch
-            android:id="@+id/switch1"
+            android:id="@+id/darkModeSwitch"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginBottom="0dp"

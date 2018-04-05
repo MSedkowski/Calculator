@@ -23,9 +23,10 @@ public class AdvanceCalculatorActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.advance_calculator);
         Intent intent = getIntent();
         darkMode = intent.getBooleanExtra("darkMode", false); //if it's a string you stored.
+        if(darkMode) setContentView(R.layout.advance_calculator_dark);
+        else setContentView(R.layout.advance_calculator);
         inputField = findViewById(R.id.inputField);
         equation = new Equation();
     }

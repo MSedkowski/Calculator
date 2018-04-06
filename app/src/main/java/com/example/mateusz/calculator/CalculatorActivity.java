@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
@@ -22,6 +23,7 @@ public class CalculatorActivity extends AppCompatActivity {
     private Equation equation;
     private Locale currentLocale;
     private DecimalFormatSymbols otherSymbols;
+    private DecimalFormat formatValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,13 @@ public class CalculatorActivity extends AppCompatActivity {
         otherSymbols = new DecimalFormatSymbols(currentLocale);
         otherSymbols.setDecimalSeparator('.');
         otherSymbols.setGroupingSeparator(',');
+        formatValue = new DecimalFormat("0.0E0");
+        formatValue.setGroupingSize(12);
+        formatValue.setMinimumFractionDigits(7);
+        formatValue.setMaximumFractionDigits(7);
+        formatValue.setMaximumIntegerDigits(11);
+        formatValue.setDecimalFormatSymbols(otherSymbols);
+        formatValue.setRoundingMode(RoundingMode.HALF_UP);
     }
 
     @SuppressLint("SetTextI18n")
@@ -61,15 +70,13 @@ public class CalculatorActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     public void makeEquation(View view) {
-        DecimalFormat formater;
         Button equationSign = (Button) view;
         try {
             if (equationSign.getText().toString().equals("=")) {
                 if (!Double.isNaN(equation.getFirstDigit())) {
                     if(!equation.isEqualSignClicked()) equation.setSecondDigit(Double.parseDouble(inputField.getText().toString()));
                     equation.makeEquation(equation);
-                    formater = checkTheValue(equation.getValue());
-                    inputField.setText("" + formater.format(equation.getValue()));
+                    inputField.setText("" + formatValue.format(equation.getValue()));
                     equation.setFirstDigit(Double.parseDouble(inputField.getText().toString()));
                     equation.setEqualSignClicked(true);
                 }
@@ -87,13 +94,11 @@ public class CalculatorActivity extends AppCompatActivity {
                 if(!equation.isEqualSignClicked() && !equation.isWaitForDigit()) {
                     if (Double.isNaN(equation.getFirstDigit())) {
                         equation.setFirstDigit(Double.parseDouble(inputField.getText().toString()));
-                        formater = checkTheValue(equation.getFirstDigit());
-                        inputField.setText("" + formater.format(equation.getFirstDigit()));
+                        inputField.setText("" + formatValue.format(equation.getFirstDigit()));
                     } else {
                         equation.setSecondDigit(Double.parseDouble(inputField.getText().toString()));
                         equation.makeEquation(equation);
-                        formater = checkTheValue(equation.getValue());
-                        inputField.setText("" + formater.format(equation.getValue()));
+                        inputField.setText("" + formatValue.format(equation.getValue()));
                     }
                     equation.setClearScreen(true);
                 }
@@ -112,15 +117,13 @@ public class CalculatorActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     public void makeOneDigitEquation(View view) {
-        DecimalFormat formater;
         Button equationSign = (Button) view;
         try {
             equation.setOperationSign(equationSign.getText().toString());
             if(!inputField.getText().toString().equals("")) {
                 equation.setFirstDigit(Double.parseDouble(inputField.getText().toString()));
                 equation.makeEquation(equation);
-                formater = checkTheValue(equation.getValue());
-                inputField.setText("" + formater.format(equation.getValue()));
+                inputField.setText("" + formatValue.format(equation.getValue()));
             }
             equation.setClearScreen(true);
             equation.setWaitForDigit(true);
@@ -136,33 +139,9 @@ public class CalculatorActivity extends AppCompatActivity {
         }
     }
 
-    private DecimalFormat checkTheValue(Double value) {
-        String valueToString = value.toString();
-        if(valueToString.contains(",")) valueToString.replace(",", ".");
-        List<String> numberOfDigits = Arrays.asList(valueToString.split("\\."));
-        int numberOfDigitsBeforeZero = numberOfDigits.get(0).length();
-        int numberOfDigitsAfterZero = 0;
-        if(numberOfDigits.size() > 1) {
-            numberOfDigitsAfterZero = numberOfDigits.get(1).length();
-            if(numberOfDigitsAfterZero + numberOfDigitsBeforeZero > 12) {
-                numberOfDigitsAfterZero = 12 - numberOfDigitsBeforeZero;
-            }
-        }
-        StringBuilder formater = new StringBuilder();
-        for(int i = 0; i < numberOfDigitsBeforeZero; i++) {
-            formater.append("#");
-        }
-        formater.append(".");
-        for(int i = 0; i < numberOfDigitsAfterZero; i++) {
-            formater.append("#");
-        }
-        return new DecimalFormat(formater.toString(), otherSymbols);
-    }
-
     public void clearInputField(View view) {
         inputField.setText("");
-        equation.setFirstDigit(Double.NaN);
-        equation.setSecondDigit(Double.NaN);
+        equation.clearAll();
     }
 
     public void bkspInput(View view) {

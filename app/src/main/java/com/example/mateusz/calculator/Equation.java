@@ -131,4 +131,14 @@ public class Equation {
         this.clearScreen = true;
         firstDigit = value;
     }
+
+    public void clearAll() {
+        this.clearScreen = false;
+        this.equalSignClicked = false;
+        this.firstDigit = Double.NaN;
+        this.secondDigit = Double.NaN;
+        this.value = Double.NaN;
+        this.waitForDigit = false;
+        this.operationSign = "";
+    }
 }

@@ -39,9 +39,8 @@ public class AdvanceCalculatorActivity extends AppCompatActivity {
         otherSymbols = new DecimalFormatSymbols(currentLocale);
         otherSymbols.setDecimalSeparator('.');
         otherSymbols.setGroupingSeparator(',');
-        formatValue = new DecimalFormat("0.0E0");
+        formatValue = new DecimalFormat("#.#E0");
         formatValue.setGroupingSize(12);
-        formatValue.setMinimumFractionDigits(7);
         formatValue.setMaximumFractionDigits(7);
         formatValue.setMaximumIntegerDigits(11);
         formatValue.setDecimalFormatSymbols(otherSymbols);
@@ -71,13 +70,16 @@ public class AdvanceCalculatorActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     public void makeEquation(View view) {
+        String check;
         Button equationSign = (Button) view;
         try {
             if (equationSign.getText().toString().equals("=")) {
                 if (!Double.isNaN(equation.getFirstDigit())) {
                     if(!equation.isEqualSignClicked()) equation.setSecondDigit(Double.parseDouble(inputField.getText().toString()));
                     equation.makeEquation(equation);
-                    inputField.setText("" + formatValue.format(equation.getValue()));
+                    check = "" + equation.getValue();
+                    if(check.length() > 12) inputField.setText("" + formatValue.format(equation.getValue()));
+                    else inputField.setText("" + equation.getValue());
                     equation.setFirstDigit(Double.parseDouble(inputField.getText().toString()));
                     equation.setEqualSignClicked(true);
                 }
@@ -87,7 +89,6 @@ public class AdvanceCalculatorActivity extends AppCompatActivity {
                         equation.setEqualSignClicked(true);
                     }
                 }
-                equation.setClearScreen(true);
             } else if(equationSign.getText().toString().equals("-") && inputField.getText().toString().isEmpty()) {
                 inputField.setText("-");
                 equation.setWaitForDigit(true);
@@ -96,11 +97,15 @@ public class AdvanceCalculatorActivity extends AppCompatActivity {
                 if(!equation.isEqualSignClicked() && !equation.isWaitForDigit()) {
                     if (Double.isNaN(equation.getFirstDigit())) {
                         equation.setFirstDigit(Double.parseDouble(inputField.getText().toString()));
-                        inputField.setText("" + formatValue.format(equation.getFirstDigit()));
+                        check = "" + equation.getValue();
+                        if(check.length() > 12) inputField.setText("" + formatValue.format(equation.getFirstDigit()));
+                        else inputField.setText("" + equation.getFirstDigit());
                     } else {
                         equation.setSecondDigit(Double.parseDouble(inputField.getText().toString()));
                         equation.makeEquation(equation);
-                        inputField.setText("" + formatValue.format(equation.getValue()));
+                        check = "" + equation.getValue();
+                        if(check.length() > 12) inputField.setText("" + formatValue.format(equation.getValue()));
+                        else inputField.setText("" + equation.getValue());
                     }
                     equation.setClearScreen(true);
                 }
@@ -109,27 +114,29 @@ public class AdvanceCalculatorActivity extends AppCompatActivity {
             }
         } catch (Exception ex) {
             Context context = getApplicationContext();
-            int duration = Toast.LENGTH_LONG;
+            int duration = Toast.LENGTH_SHORT;
 
             Toast toast = Toast.makeText(context, ex.getMessage(), duration);
             toast.show();
             inputField.setText("");
-            equation.setFirstDigit(Double.NaN);
-            equation.setSecondDigit(Double.NaN);
         }
     }
 
     @SuppressLint("SetTextI18n")
     public void makeOneDigitEquation(View view) {
+        String check;
         Button equationSign = (Button) view;
         try {
             equation.setOperationSign(equationSign.getText().toString());
             if(!inputField.getText().toString().equals("")) {
                 equation.setFirstDigit(Double.parseDouble(inputField.getText().toString()));
                 equation.makeEquation(equation);
-                inputField.setText("" + formatValue.format(equation.getValue()));
+                check = "" + equation.getValue();
+                if(check.length() > 12) inputField.setText("" + formatValue.format(equation.getValue()));
+                else inputField.setText("" + equation.getValue());
             }
             equation.setClearScreen(true);
+            equation.setWaitForDigit(true);
         } catch (Exception ex) {
             Context context = getApplicationContext();
             int duration = Toast.LENGTH_SHORT;

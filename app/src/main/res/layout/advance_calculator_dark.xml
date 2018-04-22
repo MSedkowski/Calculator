@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:visibility="visible"
+    tools:context="com.example.mateusz.calculator.AdvanceCalculatorActivity"
+    tools:ignore="ButtonStyle,NestedWeights,UnusedAttribute">
+
+    <LinearLayout
+        android:id="@+id/mainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/inputField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginStart="4dp"
+            android:height="60dp"
+            android:gravity="end"
+            android:singleLine="true"
+            android:textColor="@android:color/holo_orange_dark"
+            android:textSize="60sp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/firstRow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/changeSign"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:onClick="makeOneDigitEquation"
+                android:text="@string/sign_plus_minus"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@+id/guideline2"
+                app:layout_constraintEnd_toStartOf="@+id/bkspButton"
+                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                app:layout_constraintTop_toBottomOf="@+id/inputField" />
+
+            <Button
+                android:id="@+id/bkspButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_weight="4"
+                android:backgroundTint="@android:color/holo_red_dark"
+                android:onClick="bkspInput"
+                android:text="@string/bakspace"
+                android:textColor="@android:color/background_light"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@+id/guideline2"
+                app:layout_constraintEnd_toStartOf="@+id/clearButton"
+                app:layout_constraintStart_toEndOf="@+id/changeSign"
+                app:layout_constraintTop_toBottomOf="@+id/inputField" />
+
+            <Button
+                android:id="@+id/clearButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="4"
+                android:backgroundTint="@android:color/holo_red_dark"
+                android:onClick="clearInputField"
+                android:text="@string/clear"
+                android:textColor="@android:color/background_light"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@+id/guideline2"
+                app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                app:layout_constraintStart_toEndOf="@+id/bkspButton"
+                app:layout_constraintTop_toBottomOf="@+id/inputField" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/secondRow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/sinSign"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:onClick="makeOneDigitEquation"
+                android:text="@string/sinus"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@+id/sqrtSign"
+                app:layout_constraintEnd_toStartOf="@+id/cosSign"
+                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+            <Button
+                android:id="@+id/cosSign"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:onClick="makeOneDigitEquation"
+                android:text="@string/cosinus"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@+id/pow2Sign"
+                app:layout_constraintEnd_toStartOf="@+id/tgSign"
+                app:layout_constraintStart_toEndOf="@+id/sinSign"
+                app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+            <Button
+                android:id="@+id/tgSign"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:onClick="makeOneDigitEquation"
+                android:text="@string/tangens"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@+id/powSign"
+                app:layout_constraintEnd_toStartOf="@+id/lnSign"
+                app:layout_constraintStart_toEndOf="@+id/cosSign"
+                app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+            <Button
+                android:id="@+id/lnSign"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:onClick="makeOneDigitEquation"
+                android:text="@string/ln"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@+id/logSign"
+                app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                app:layout_constraintStart_toEndOf="@+id/tgSign"
+                app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/thirdRow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteY="243dp">
+
+            <Button
+                android:id="@+id/sqrtSign"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:onClick="makeOneDigitEquation"
+                android:text="@string/sqrt"
+                app:layout_constraintBottom_toTopOf="@+id/digitSeven"
+                app:layout_constraintEnd_toStartOf="@+id/pow2Sign"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                app:layout_constraintTop_toBottomOf="@+id/sinSign" />
+
+            <Button
+                android:id="@+id/pow2Sign"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="makeOneDigitEquation"
+                android:text="@string/pow2"
+                app:layout_constraintBottom_toTopOf="@+id/digitEight"
+                app:layout_constraintEnd_toStartOf="@+id/powSign"
+                app:layout_constraintStart_toEndOf="@+id/sqrtSign"
+                app:layout_constraintTop_toBottomOf="@+id/cosSign" />
+
+            <Button
+                android:id="@+id/powSign"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="makeEquation"
+                android:text="@string/powX"
+                app:layout_constraintBottom_toTopOf="@+id/digitNine"
+                app:layout_constraintEnd_toStartOf="@+id/logSign"
+                app:layout_constraintStart_toEndOf="@+id/pow2Sign"
+                app:layout_constraintTop_toBottomOf="@+id/tgSign" />
+
+            <Button
+                android:id="@+id/logSign"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_weight="1"
+                android:onClick="makeOneDigitEquation"
+                android:text="@string/log"
+                app:layout_constraintBottom_toTopOf="@+id/signDivide"
+                app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                app:layout_constraintStart_toEndOf="@+id/powSign"
+                app:layout_constraintTop_toBottomOf="@+id/lnSign" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/fourthRow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <Button
+                android:id="@+id/digitSeven"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/holo_green_dark"
+                android:onClick="addDigit"
+                android:text="@string/digit_seven"
+                android:textColor="@android:color/background_light"
+                app:layout_constraintBottom_toTopOf="@+id/digitFour"
+                app:layout_constraintEnd_toStartOf="@+id/digitEight"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                app:layout_constraintTop_toBottomOf="@+id/sqrtSign" />
+
+            <Button
+                android:id="@+id/digitEight"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/holo_green_dark"
+                android:onClick="addDigit"
+                android:text="@string/digit_eight"
+                android:textColor="@android:color/background_light"
+                app:layout_constraintBottom_toTopOf="@+id/digitFive"
+                app:layout_constraintEnd_toStartOf="@+id/digitNine"
+                app:layout_constraintStart_toEndOf="@+id/digitSeven"
+                app:layout_constraintTop_toBottomOf="@+id/pow2Sign" />
+
+            <Button
+                android:id="@+id/digitNine"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/holo_green_dark"
+                android:onClick="addDigit"
+                android:text="@string/digit_nine"
+                android:textColor="@android:color/background_light"
+                app:layout_constraintBottom_toTopOf="@+id/digitSix"
+                app:layout_constraintEnd_toStartOf="@+id/signDivide"
+                app:layout_constraintStart_toEndOf="@+id/digitEight"
+                app:layout_constraintTop_toBottomOf="@+id/powSign" />
+
+            <Button
+                android:id="@+id/signDivide"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/holo_blue_dark"
+                android:onClick="makeEquation"
+                android:text="@string/sign_divide"
+                android:textColor="@android:color/background_light"
+                app:layout_constraintBottom_toTopOf="@+id/signMultiply"
+                app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                app:layout_constraintStart_toEndOf="@+id/digitNine"
+                app:layout_constraintTop_toBottomOf="@+id/logSign" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/fifthRow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/digitFour"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="2dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/holo_green_dark"
+                android:onClick="addDigit"
+                android:text="@string/digit_four"
+                android:textColor="@android:color/background_light"
+                app:layout_constraintBottom_toTopOf="@+id/digitOne"
+                app:layout_constraintEnd_toStartOf="@+id/digitFive"
+                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                app:layout_constraintTop_toBottomOf="@+id/digitSeven" />
+
+            <Button
+                android:id="@+id/digitFive"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="2dp"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/holo_green_dark"
+                android:onClick="addDigit"
+                android:text="@string/digit_five"
+                android:textColor="@android:color/background_light"
+                app:layout_constraintBottom_toTopOf="@+id/digitTwo"
+                app:layout_constraintEnd_toStartOf="@+id/digitSix"
+                app:layout_constraintStart_toEndOf="@+id/digitFour"
+                app:layout_constraintTop_toBottomOf="@+id/digitEight" />
+
+            <Button
+                android:id="@+id/digitSix"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="2dp"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/holo_green_dark"
+                android:onClick="addDigit"
+                android:text="@string/digit_six"
+                android:textColor="@android:color/background_light"
+                app:layout_constraintBottom_toTopOf="@+id/digitThree"
+                app:layout_constraintEnd_toStartOf="@+id/signMultiply"
+                app:layout_constraintStart_toEndOf="@+id/digitFive"
+                app:layout_constraintTop_toBottomOf="@+id/digitNine" />
+
+            <Button
+                android:id="@+id/signMultiply"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="2dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/holo_blue_dark"
+                android:onClick="makeEquation"
+                android:text="@string/sign_multiply"
+                android:textColor="@android:color/background_light"
+                app:layout_constraintBottom_toTopOf="@+id/signMinus"
+                app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                app:layout_constraintStart_toEndOf="@+id/digitSix"
+                app:layout_constraintTop_toBottomOf="@+id/signDivide" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sixthRow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/digitOne"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="2dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/holo_green_dark"
+                android:onClick="addDigit"
+                android:text="@string/digit_one"
+                android:textColor="@android:color/background_light"
+                app:layout_constraintBottom_toTopOf="@+id/digitZero"
+                app:layout_constraintEnd_toStartOf="@+id/digitTwo"
+                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                app:layout_constraintTop_toBottomOf="@+id/digitFour" />
+
+            <Button
+                android:id="@+id/digitTwo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="2dp"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/holo_green_dark"
+                android:onClick="addDigit"
+                android:text="@string/digit_two"
+                android:textColor="@android:color/background_light"
+                app:layout_constraintBottom_toTopOf="@+id/comaButton"
+                app:layout_constraintEnd_toStartOf="@+id/digitThree"
+                app:layout_constraintStart_toEndOf="@+id/digitOne"
+                app:layout_constraintTop_toBottomOf="@+id/digitFive" />
+
+            <Button
+                android:id="@+id/digitThree"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="2dp"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/holo_green_dark"
+                android:onClick="addDigit"
+                android:text="@string/digit_three"
+                android:textColor="@android:color/background_light"
+                app:layout_constraintBottom_toTopOf="@+id/equalsButton"
+                app:layout_constraintEnd_toStartOf="@+id/signMinus"
+                app:layout_constraintStart_toEndOf="@+id/digitTwo"
+                app:layout_constraintTop_toBottomOf="@+id/digitSix" />
+
+            <Button
+                android:id="@+id/signMinus"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="2dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/holo_blue_dark"
+                android:onClick="makeEquation"
+                android:text="@string/sign_minus"
+                android:textColor="@android:color/background_light"
+                app:layout_constraintBottom_toTopOf="@+id/plusSign"
+                app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                app:layout_constraintStart_toEndOf="@+id/digitThree"
+                app:layout_constraintTop_toBottomOf="@+id/signMultiply" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/seventhRow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/digitZero"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/holo_green_dark"
+                android:onClick="addDigit"
+                android:text="@string/digit_zero"
+                android:textColor="@android:color/background_light"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/comaButton"
+                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                app:layout_constraintTop_toBottomOf="@+id/digitOne" />
+
+            <Button
+                android:id="@+id/comaButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="1"
+                android:onClick="addComa"
+                android:text="@string/coma"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/equalsButton"
+                app:layout_constraintStart_toEndOf="@+id/digitZero"
+                app:layout_constraintTop_toBottomOf="@+id/digitTwo" />
+
+            <Button
+                android:id="@+id/equalsButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/holo_orange_dark"
+                android:onClick="makeEquation"
+                android:text="@string/sign_equal"
+                android:textColor="@android:color/background_light"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/plusSign"
+                app:layout_constraintStart_toEndOf="@+id/comaButton"
+                app:layout_constraintTop_toBottomOf="@+id/digitThree" />
+
+            <Button
+                android:id="@+id/plusSign"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/holo_blue_dark"
+                android:onClick="makeEquation"
+                android:text="@string/sign_plus"
+                android:textColor="@android:color/background_light"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                app:layout_constraintStart_toEndOf="@+id/equalsButton"
+                app:layout_constraintTop_toBottomOf="@+id/signMinus" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

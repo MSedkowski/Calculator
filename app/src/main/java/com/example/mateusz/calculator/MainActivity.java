@@ -50,5 +50,4 @@ public class MainActivity extends AppCompatActivity {
         about.putExtra("darkMode", darkMode); //Optional parameters
         MainActivity.this.startActivity(about);
     }
-
 }
